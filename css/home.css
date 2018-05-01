@@ -1,0 +1,21 @@
+.add_page_btn
+{
+	float:right;
+    margin-bottom: 20px;
+}
+
+h2
+{
+	text-align: center;
+}
+
+#page_list_wrapper
+{
+   margin-top: 25px;
+}
+
+.head_section
+{
+    overflow: hidden;
+    border-bottom: 2px solid lightgray;
+}
