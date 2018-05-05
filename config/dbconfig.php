@@ -1,19 +1,33 @@
 <?php
+require dirname(__FILE__).'/../vendor/autoload.php';
 
-
+session_start();
 class dbConnection
 {
-
-   
+	
+	public function __construct()
+	{
+		if(!($_SESSION['Logged'] == 1 && !empty($_SESSION['user_id'])) )
+		{
+			header('Location:login.php');
+		}
+	
+	}
+	
    function db_connect()
     {
-    	$servername = "localhost";
-    	$username = "root";
-    	$password = "root";
-    	$dbname = "cliently_cms_backend";
     	
+    	$dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+    	$dotenv->load();
+    	
+    	$servername = $_SERVER['servername'];
+    	$username = $_SERVER['username'];
+    	$password = $_SERVER["password"];
+    	$dbname = $_SERVER["dbname"];
+    	
+    
     	// Create connection
-    	 $con = new mysqli($servername, $username, $password, $dbname);
+    	 $con = new mysqli($servername, $username ,$password, $dbname);
     	
     	// Check connection
     	if ($con ->connect_error)

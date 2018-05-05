@@ -1,3 +1,15 @@
+<?php
+
+
+     require dirname(__FILE__).'/config/dbconfig.php';
+
+   	 $dbclass  = new dbConnection();
+	 $conn = $dbclass-> db_connect();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,7 +31,8 @@
 	</head>	
 	<body>
        <div class="navigation">
-          <a href="/cliently_cms/home.php" type="button" class="btn btn-primary btn-sm">Go to Home Page</button></a>
+          <a href="/cliently_cms/home.php" type="button" style="float:left;" class="btn btn-primary btn-md">Go to Home Page</button></a>
+          <a href="/cliently_cms/logout.php" type="button" style="float:right;" class="btn btn-primary btn-md" >Logout</a>
        </div>
 	   <div class="row">
 	     <div class="col-sm-4"></div>

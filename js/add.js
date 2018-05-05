@@ -448,7 +448,7 @@ $( document ).ready(function() {
 		       		  
 		    	case "gifting":
 		    	      
-				      action_detail = "";
+				      action_detail = "GIFT";
 				      
 				      var gift_image = uploadGiftImage();
 		    		  if(gift_image != '' && gift_image != false  && gift_image != '' && gift_image != false )
@@ -683,7 +683,7 @@ $( document ).ready(function() {
 		    	      
 		    		  stepname = 'Gifting';
 				      imgpath  = "~/../images/gift.svg";
-				      action_detail = ""
+				      action_detail = "GIFT";
 					
 				    	  
 			    	  var gift_image = uploadGiftImage();
@@ -1008,7 +1008,7 @@ $( document ).ready(function() {
 			 
 			  var RequestHeaders = [];
 		      RequestHeaders['Content-Type'] = 'application/json';
-	          var url = main_url + "/api/add.php";
+	          var url =  "/cliently_cms/api/add.php";
 		      var xhr = creatXhrRequest("POST", url, false, RequestHeaders, false);
 		      xhr.send(JSON.stringify(data));
 			 
@@ -1017,7 +1017,7 @@ $( document ).ready(function() {
 		      {
 				
 		    	  alert(jsonResponse.status_message);
-		    	  location.reload();
+		    	  window.location.href = "/cliently_cms/home.php";
 				
 		      }
 		      else
@@ -1061,7 +1061,7 @@ $( document ).ready(function() {
 			 
 			  var RequestHeaders = [];
 		      RequestHeaders['Content-Type'] = 'application/json';
-	          var url = main_url +"/api/update.php?id=" + id;
+	          var url = "/cliently_cms/api/update.php?id=" + id;
 		      var xhr = creatXhrRequest("POST", url, false, RequestHeaders, false);
 		      xhr.send(JSON.stringify(data));
 			 
@@ -1070,7 +1070,7 @@ $( document ).ready(function() {
 		      {
 				
 		    	  alert(jsonResponse.status_message);
-		    	  window.location.href = main_url + "/home.php"
+		    	  window.location.href = "/cliently_cms/home.php";
 				
 		      }
 		      else
@@ -1089,7 +1089,7 @@ $( document ).ready(function() {
 		 
 		 if($('#author_img_input')[0].files[0] != undefined)
 		 {
-			    var url = main_url+'/api/upload.php';
+			    var url = '/cliently_cms/api/upload.php';
 
 				var RequestHeaders = [];
 				RequestHeaders['Content-Type'] = 'multipart/form-data';
@@ -1138,7 +1138,7 @@ $( document ).ready(function() {
 	 	
       var uploadPostCardImage = function(type) {
 		
-  	     var url = main_url+'/api/upload.php';
+  	     var url = '/cliently_cms/api/upload.php';
 
 		 var RequestHeaders = [];
 		 RequestHeaders['Content-Type'] = 'multipart/form-data';
@@ -1233,7 +1233,7 @@ $( document ).ready(function() {
 	 
 	var uploadGiftImage = function()
 	{
-		var url = main_url+'/api/upload.php';
+		var url = '/cliently_cms/api/upload.php';
 
 			 var RequestHeaders = [];
 			 RequestHeaders['Content-Type'] = 'multipart/form-data';
@@ -1614,7 +1614,7 @@ $( document ).ready(function() {
 		if($('#video_emil_file')[0].files[0] != undefined  || newblob.size > 0)
 		{
 			
-			var url = main_url 	+ '/api/upload.php';
+			var url =   '/cliently_cms/api/upload.php';
 			var RequestHeaders = [];
 			RequestHeaders['Content-Type'] = 'multipart/form-data';
 			RequestHeaders['X-Requested-With'] = 'XMLHttpRequest';
@@ -1839,7 +1839,7 @@ var  addaction =  function (action)
 	    	      
 	    		  stepname = 'Gifting';
 			      imgpath  = "~/../images/gift.svg";
-			      action_detail = "Gift"
+			      action_detail = "GIFT";
 				
 			      var gifting_image  = $('<input class="gifting_image" />');
 			      var gift_card_script = $('<input class="gift_card_script" />');
