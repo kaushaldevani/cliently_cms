@@ -1,0 +1,6 @@
+{
+    "name": "vendor/name",
+    "require": {
+        "vlucas/phpdotenv": "^2.4"
+    }
+}

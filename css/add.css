@@ -9,7 +9,11 @@
 .navigation
 {
 	text-align:center;
-	margin-top: 10px;"
+	margin-top: 30px;
+	margin-left: 33.33%;
+    width: 33.33%;
+    overflow: hidden;
+    padding:10px;
 }
 .detail
 {

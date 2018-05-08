@@ -1,7 +1,7 @@
 <?php 
 
 
-	include 'config/dbconfig.php';
+	require dirname(__FILE__).'/config/dbconfig.php';
 
 	$dbclass  = new dbConnection();
 	$conn = $dbclass-> db_connect();
@@ -40,7 +40,8 @@
 	<div class="container">
   	   <div class="head_section">	
   	   		<h2>List of Pages</h2>
-  			<a href="/cliently_cms/add.html" type="button" class="add_page_btn btn btn-primary btn-lg" >Add new</a>
+  	   		<a href="/cliently_cms/logout.php" type="button" style="float:right;" class="btn btn-primary btn-lg" >Logout</a>
+  			<a href="/cliently_cms/add.php" type="button" class="add_page_btn btn btn-primary btn-lg" >Add new</a>
   	   </div>
   	
   	

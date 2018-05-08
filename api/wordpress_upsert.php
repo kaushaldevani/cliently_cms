@@ -1,12 +1,26 @@
 <?php
 
-	include '../config/dbconfig.php';
+// 	include '../config/dbconfig.php';
+	require dirname(__FILE__).'/../config/dbconfig.php';
+	require dirname(__FILE__).'/../vendor/autoload.php';
 
 	class wordpressOps
 	{
-		const wp_username = "root";
-		const wp_password = "root@kd123";
-		const wordpress_url = "http://127.0.0.1/wordpress/index.php/wp-json/wp/v2/pages";
+		
+		private $wp_username;
+		private $wp_password;
+		private $wordpress_url;
+		
+		public function __construct()
+		{
+			$dotenv = new Dotenv\Dotenv(__DIR__.'/../');
+			$dotenv->load();				
+			
+			$this->wp_username = $_SERVER['wp_username'];  //"root";
+			$this->wp_password =   $_SERVER['wp_password'] ;//"root@kd123";
+			$this->wordpress_url = $_SERVER['wordpress_url'];; //"http://127.0.0.1/wordpress/index.php/wp-json/wp/v2/pages";
+		
+		}
 		
 		public function upsertPageInWordpress($db_id,$wp_id = null) 
 		{
@@ -14,12 +28,13 @@
 			$conn = $dbclass-> db_connect();
 			if($wp_id != null)
 			{
-				$url = self::wordpress_url.'/'.$wp_id;
+				$url = $this->wordpress_url.'/'.$wp_id;
 			}
 			else
 			{
-				$url = self::wordpress_url;
+				$url = $this->wordpress_url;
 			}
+			
 			$sql = "SELECT * FROM `page` WHERE id = '$db_id'";
 			$result = $conn->query($sql);
 			if ($result->num_rows > 0)
@@ -45,7 +60,7 @@
 					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 					curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 					curl_setopt($ch, CURLOPT_POST, 1);
-					curl_setopt($ch, CURLOPT_USERPWD, self::wp_username . ":" . self::wp_password);
+					curl_setopt($ch, CURLOPT_USERPWD, $this->wp_username. ":" . $this->wp_password);
 					$headers    = array();
 					$headers[]  = "Content-Type: application/x-www-form-urlencoded";
 					curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -79,16 +94,17 @@
 		
 		public function DeletePageInWordpress($wp_id)
 		{
+			
 			if($wp_id != null)
 			{
-			   $url = self::wordpress_url .'/'.	$wp_id;
+			   $url = $this->wordpress_url .'/'.	$wp_id;
 
 			    $ch = curl_init();
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
 				curl_setopt($ch, CURLOPT_URL, $url);
 				curl_setopt($ch, CURLOPT_POST, 1);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($ch, CURLOPT_USERPWD, self::wp_username . ":" . self::wp_password);
+				curl_setopt($ch, CURLOPT_USERPWD, $this->wp_username . ":" . $this->wp_password);
 				
 			
 			    $result = curl_exec($ch);
