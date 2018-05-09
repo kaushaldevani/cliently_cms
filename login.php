@@ -3,26 +3,25 @@
 
     require dirname(__FILE__).'/vendor/autoload.php';
     session_start();
-    
+
 
     if (!empty($_POST))
     {
     	$user_name =  $_POST['username'];
-    	$password =  $_POST['password'];
+    	$user_password =  $_POST['password'];
     	$user_id= 0;
-    	
+
     	$dotenv = new Dotenv\Dotenv(__DIR__);
     	$dotenv->load();
-    	 
-    	$servername = $_SERVER['servername'];
-    	$username = $_SERVER['username'];
-    	$password = $_SERVER["password"];
-    	$dbname = $_SERVER["dbname"];
-    	 
-    	
+
+    	$servername = $_SERVER['DB_HOST'];
+    	$username = $_SERVER['DB_USER'];
+    	$password = $_SERVER["DB_PASSWORD"];
+    	$dbname = $_SERVER["DB_NAME"];
+
     	// Create connection
     	$con = new mysqli($servername, $username ,$password, $dbname);
-    	 
+
     	// Check connection
     	if ($con ->connect_error)
     	{
@@ -30,39 +29,37 @@
     	}
     	else
     	{
-    		
+
     		$stmt = $con->prepare( "SELECT id,user_name FROM user WHERE user_name = ? AND password = ?");
-    		$stmt->bind_param('ss', $user_name, md5($password));
-    		$stmt->execute();    		
+    		$stmt->bind_param('ss', $user_name, md5($user_password));
+    		$stmt->execute();
     		$stmt->bind_result($user_id, $user_name );
     		$stmt->store_result();
-    		
-    		
-    		
+
     		if($stmt->num_rows == 1)  //To check if the row exists
     		{
     			if($stmt->fetch()) //fetching the contents of the row
     			{
-    				
+
     					$_SESSION['Logged'] = 1;
     					$_SESSION['user_id'] = $user_id;
     					$_SESSION['username'] = $username;
     					header('Location:home.php');
     			}
-    		
+
     		}
-    		else 
+    		else
     		{
     			echo "INVALID USERNAME/PASSWORD Combination!";
     		}
-			
+
 		}
-		
-		
+
+
 		$stmt->close();
 		$conn->close();
 	}
-	
+
 
 ?>
 
@@ -74,12 +71,12 @@
   		<meta charset="utf-8">
   		<meta name="viewport" content="width=device-width, initial-scale=1">
   		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  		
+
   		<link rel="stylesheet" href="css/login.css" >
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   	</head>
-  	<body>	
+  	<body>
 			<div class="container">
   <form action="" method="post">
     <div class="row">

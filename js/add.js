@@ -1,7 +1,7 @@
 
 
 var chunks = [];
-var main_url = "http://www.cliently.com/cliently_cms";
+var main_url = "http://wpstaging.cliently.io/cliently_cms";
 var autho_img__url = '~/../uploads/Images/';
 $( document ).ready(function() {
 
