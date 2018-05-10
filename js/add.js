@@ -1654,7 +1654,7 @@ $( document ).ready(function() {
 		}
 		else
 		{
-			alert("Plase record or Upload Video");
+			alert("Please record or Upload Video");
 			return false;
 		}
 
@@ -1670,6 +1670,11 @@ $( document ).ready(function() {
 		if( !$('input#page_name').val() )
 		{
 			alert('Please enter Page Name.');
+			return false;
+		}
+		else if($('div.flow-action').children().not('#action_template').length <= 0 )
+		{
+			alert('Please add some action');
 			return false;
 		}
 		else if(!$('textarea#editor-toolbar-for-tips').val())
@@ -1690,11 +1695,6 @@ $( document ).ready(function() {
 		else if(!$('input#Job_title').val())
 		{
 			alert('Please enter Author\'s Job Title.');
-			return false;
-		}
-		else if($('div.flow-action').children().not('#action_template').length <= 0 )
-		{
-			alert('Please add some action');
 			return false;
 		}
 		else if($('img#author_img').attr('src') == '~/../images/profile-blank.png')

@@ -562,7 +562,8 @@
 }
 
 .action-name {
-  width: auto;
+  /*widht:auto*/	
+  width: 78%;
   height: 16px;
   opacity: 0.5;
   font-family: 'Roboto', sans-serif;
@@ -572,6 +573,9 @@
   text-align: left;
   color: #707090;
   float: left;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .action-detail {
   /*width: 239px;*/
@@ -590,13 +594,21 @@
 }
 
 .action-in-flow-Shape {
-  width: 12px;
+  /*width: 12px;
   height: 8px;
   color: #d6d6d6;
-  /*background-color: #d6d6d6;*/
   margin: 23px 4px	23px 7px;
   float: left;
-  font-size: 11px;
+  font-size: 11px;*/
+  
+  
+  width: 3% !important;
+  height: 16%;
+  color: #d6d6d6;
+  margin: 23px 1% 23px 2%;
+  float: left;
+  font-size: 11px !important;
+  
 }
 
 .delete_action
@@ -604,6 +616,8 @@
 	font-size: 24px !important;
 	margin-left: 10%;
 	margin-top: 4px;
+	width: 7% !important;
+    height: 64%;
 }
 .hidden_data_for_action
 {

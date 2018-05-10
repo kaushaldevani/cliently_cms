@@ -80,7 +80,7 @@
 			<div class="container">
   <form action="" method="post">
     <div class="row">
-      <h2 style="text-align:center">CLENTLY CMS LOGIN</h2>
+      <h2 style="text-align:center">CLIENTLY CMS LOGIN</h2>
       <div class="col">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>

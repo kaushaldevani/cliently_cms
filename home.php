@@ -50,7 +50,7 @@
       <tr>
         <th>ID</th>
         <th>Page Name</th>        
-        <th>Writteb By</th>
+        <th>Written By</th>
         <th>Edit / Delete</th>
       </tr>
     </thead>
