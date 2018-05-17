@@ -1,12 +1,19 @@
 <?php 
 
-
+    require dirname(__FILE__).'/vendor/autoload.php';
 	require dirname(__FILE__).'/config/dbconfig.php';
 
 	$dbclass  = new dbConnection();
 	$conn = $dbclass-> db_connect();
 	
 	$result = mysqli_query($conn,"SELECT * FROM page");
+	
+	$dotenv = new Dotenv\Dotenv(__DIR__);
+	$dotenv->load();
+	$wp_url = $_SERVER['WORDPRESS_URL'];
+    $wp_url_comp = parse_url($wp_url);
+	$wordpress_url = $wp_url_comp['scheme'].'://'.$wp_url_comp['host'].'/?';
+	
 	?>
 	
 	
@@ -51,7 +58,7 @@
         <th>ID</th>
         <th>Page Name</th>        
         <th>Written By</th>
-        <th>Edit / Delete</th>
+        <th>Edit / Delete / View</th>
       </tr>
     </thead>
     <tbody>
@@ -64,7 +71,11 @@
 		<td><?php  echo $row['id']; ?></td>
 		<td><?php  echo $row['page_name'];?> </td>
 		<td><?php  echo $row['written_by']; ?> </td>
-		<td><a href='/cliently_cms/edit.php?id=<?php echo $row['id'];?>'>Edit</a> | <a href='/cliently_cms/delete.php?id=<?php echo $row['id'];?>'>Delete</a></td>
+		<td>
+			<a href='/cliently_cms/edit.php?id=<?php echo $row['id'];?>'>Edit</a> | 
+		    <a href='/cliently_cms/delete.php?id=<?php echo $row['id'];?>'>Delete</a> |
+		    <a href='<?php echo $wordpress_url;?>page_id=<?php echo $row['wordpress_id'];?>&preview=true'>View</a>
+		</td>
 		</tr>
 	<?php
 	}

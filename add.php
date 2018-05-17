@@ -283,13 +283,15 @@
 									<div class="form-group col-sm-12">
 										 
 										 <div class="front_image_con postcard_img_con">
-										    <img id="postcard_front_img"  src="~/../images/profile-blank.png" alt="your image" />
-										    <button id="front_img_btn">UPLOAD FRONT ART</button>
+										    <img id="postcard_front_img"  src="~/../images/Postcard_Front_Image_Holder.png" alt="your image" />
+										    <button id="front_img_btn" class="btn btn-rounded btn-primary" >UPLOAD FRONT ART</button>
+										    <p>* 1875 x 1275 pixels</p>
   						                  	<input type='file'  id="postcard_front_img_input" style="display: none;" />
 										 </div>
 										 <div class="back_image_con postcard_img_con">
-										    <img id="postcard_back_img" src="~/../images/profile-blank.png" alt="your image" />
-										    <button id="back_img_btn" >UPLOAD BACK ART</button>
+										    <img id="postcard_back_img" src="~/../images/Postcard_Back Image_Holder.png" alt="your image" />
+										    <button id="back_img_btn" class="btn btn-rounded btn-primary" >UPLOAD BACK ART</button>
+										    <p>* 1875 x 390 pixels</p>
   											<input type='file'  id="postcard_back_img_input" style="display:none;" />
 										 </div>
 										 

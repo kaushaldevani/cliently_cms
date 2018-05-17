@@ -1,7 +1,7 @@
 
 
 var chunks = [];
-var main_url = "http://wpstaging.cliently.io/cliently_cms";
+var main_url = "https://www.cliently.com/cliently_cms";
 var autho_img__url = '~/../uploads/Images/';
 $( document ).ready(function() {
 
@@ -1158,7 +1158,7 @@ $( document ).ready(function() {
 			 }
 		 	else if($('img#postcard_front_img').attr('src') != null && $('img#postcard_front_img').attr('src') != undefined )
 		 	{
-		 		if($('img#postcard_front_img').attr('src').substring($('img#postcard_front_img').attr('src').lastIndexOf("/")+1) != "profile-blank.png")
+		 		if($('img#postcard_front_img').attr('src').substring($('img#postcard_front_img').attr('src').lastIndexOf("/")+1) != "Postcard_Front_Image_Holder.png")
 		 		{
 		 			return  $('img#postcard_front_img').attr('src').substring($('img#postcard_front_img').attr('src').lastIndexOf("/")+1);
 		 		}
@@ -1188,7 +1188,7 @@ $( document ).ready(function() {
 		 	 else if($('img#postcard_back_img').attr('src') != null && $('img#postcard_back_img').attr('src') != undefined )
 		 	 {
 
-		 		if($('img#postcard_back_img').attr('src').substring($('img#postcard_back_img').attr('src').lastIndexOf("/")+1) != "profile-blank.png")
+		 		if($('img#postcard_back_img').attr('src').substring($('img#postcard_back_img').attr('src').lastIndexOf("/")+1) != "Postcard_Back Image_Holder.png")
 		 		{
 		 			return  $('img#postcard_back_img').attr('src').substring($('img#postcard_back_img').attr('src').lastIndexOf("/")+1);
 		 		}
@@ -1459,8 +1459,8 @@ $( document ).ready(function() {
 
 			  break;
     	    case 'work-pane-postcard':
-			      $('#work-pane-postcard').find('img#postcard_front_img').attr('src','~/../images/profile-blank.png');
-			      $('#work-pane-postcard').find('img#postcard_back_img').attr('src','~/../images/profile-blank.png');
+			      $('#work-pane-postcard').find('img#postcard_front_img').attr('src','~/../images/Postcard_Front_Image_Holder.png');
+			      $('#work-pane-postcard').find('img#postcard_back_img').attr('src','~/../images/Postcard_Back Image_Holder.png');
 			      $('#work-pane-postcard').find('textarea#message_for_postcard').val('');
 			      $('#work-pane-postcard').find('input#to_full_name').val('');
 			      $('#work-pane-postcard').find('input#to_company').val('');
