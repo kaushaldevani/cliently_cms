@@ -6,6 +6,7 @@
 	$dbclass  = new dbConnection();
 	$conn = $dbclass-> db_connect();
 	
+	$aws_upload_url = 'https://cliently-wp.s3.us-west-2.amazonaws.com/cliently_cms/';
 	// Check connection
 	if ($conn->connect_error)
 	{
@@ -36,7 +37,7 @@
 				$author_img = str_replace('"', '', $row['author_image']) ;
 				if($author_img)
 				{
-					$autho_img__url = '~/../uploads/Images/'. $author_img;
+					$autho_img__url =$aws_upload_url. $author_img;
 				}
 				else
 				{

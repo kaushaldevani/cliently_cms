@@ -2,7 +2,7 @@
 
 var chunks = [];
 var main_url = "https://www.cliently.com/cliently_cms";
-var autho_img__url = '~/../uploads/Images/';
+var aws_upload_url = 'https://cliently-wp.s3.us-west-2.amazonaws.com/cliently_cms/';
 $( document ).ready(function() {
 
 
@@ -887,8 +887,8 @@ $( document ).ready(function() {
 
 			  break;
     	    case 'POSTCARD':
-			      $('#work-pane-postcard').find('img#postcard_front_img').attr('src',autho_img__url + $(hidden).find('input.frnt_img').val());
-			      $('#work-pane-postcard').find('img#postcard_back_img').attr('src',autho_img__url + $(hidden).find('input.bck_img').val());
+			      $('#work-pane-postcard').find('img#postcard_front_img').attr('src',aws_upload_url + $(hidden).find('input.frnt_img').val());
+			      $('#work-pane-postcard').find('img#postcard_back_img').attr('src',aws_upload_url + $(hidden).find('input.bck_img').val());
 			      $('#work-pane-postcard').find('textarea#message_for_postcard').val($(hidden).find('textarea.postcard_msg').val());
 			      $('#work-pane-postcard').find('input#to_full_name').val($(hidden).find('input.to_fullname').val());
 			      $('#work-pane-postcard').find('input#to_company').val($(hidden).find('input.to_companyname').val());
@@ -927,7 +927,7 @@ $( document ).ready(function() {
     	    case 'Gifting':
 
 
-    	    	  $('#gifting').find('img#gifting_img').attr('src', autho_img__url + $(hidden).find('input.gifting_image').val());
+    	    	  $('#gifting').find('img#gifting_img').attr('src', aws_upload_url + $(hidden).find('input.gifting_image').val());
     	    	  $('#gifting').find('select#gift_card').val($(hidden).find('input.gift_card_script').val());
     	    	  $('#gifting').find('input#ammount_for_gifting').val($(hidden).find('input.ammount_for_gifting	').val());
     	    	  $('#gifting').find('textarea#message_for_gifting').val($(hidden).find('textarea.gift_msg').val());

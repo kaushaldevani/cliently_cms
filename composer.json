@@ -1,6 +1,7 @@
 {
     "name": "vendor/name",
     "require": {
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "aws/aws-sdk-php": "^3.31"
     }
 }
