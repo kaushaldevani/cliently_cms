@@ -27,7 +27,8 @@
 			
 			while($row=mysqli_fetch_array($result))
 			{
-				$page_name =  $row["page_name"];
+				$industry_1 =  $row["Industry_1"];
+				$industry_2 =  $row["Industry_2"];
 				$written_by = $row["written_by"];
 				$job_title =  $row["job_title"];
 				$action_data = $row["action_data"];
@@ -69,7 +70,8 @@
 					
 					          <?php echo "<script type=\"text/javascript\"> 
 							        $(document).ready(function() { 
-							            $('input#page_name').val('$page_name');
+							            $('input#ind_1').val('$industry_1');
+							            $('input#ind_2').val('$industry_2');
 							            $('input#written_by').val('$written_by');
 							            $('input#Job_title').val('$job_title');
 							            $('textarea#editor-toolbar-for-tips').val('$tips');
@@ -103,7 +105,8 @@
 			                 		<div class="detail">
 				                     	<div class="form-group">
 				  					 		<!-- <label for="page_name">Page Name</label> -->
-				  							<input type="text" class="form-control" id="page_name" placeholder="Page Name">
+				  							<input type="text" class="form-control" id="ind_1" placeholder="Industry 1" required>
+  											<input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>
 									 	</div>
 			                	 	</div>        
 			           		        <!-- end of basic detail area -->

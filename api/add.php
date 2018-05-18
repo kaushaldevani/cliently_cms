@@ -7,7 +7,8 @@
 	$dbclass  = new dbConnection();
 	$conn = $dbclass-> db_connect();
 	
-	$page_name = $data['Page_name'];
+	$industry_1 = $data['Industry_1'];
+	$industry_2 = $data['Industry_2'];
 	$written_by = $data['Written_by'];
 	$job_title = $data['Job_title'];
 	$tips = $data['tips'];
@@ -15,9 +16,9 @@
 	$similar_camps = json_encode($data['similar_camps']);
     $author_image =  $data['author_image']; 	
 	
-	$stmt = $conn->prepare( "INSERT INTO page (page_name, written_by, tips, job_title, action_data, similar_camp_data, author_image) VALUES ( ?, ?, ?, ?, ?, ?, ?)");
+	$stmt = $conn->prepare( "INSERT INTO page (Industry_1, Industry_2, written_by, tips, job_title, action_data, similar_camp_data, author_image) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)");
 	
-	$stmt->bind_param('sssssss', $page_name, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image); 
+	$stmt->bind_param('ssssssss', $industry_1, $industry_2, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image); 
 
 	if ($stmt->execute()) 
 	{

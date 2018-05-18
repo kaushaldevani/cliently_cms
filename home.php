@@ -56,7 +56,8 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Page Name</th>        
+        <th>Industry 1</th>
+        <th>Industry 2</th>        
         <th>Written By</th>
         <th>Edit / Delete / View</th>
       </tr>
@@ -69,7 +70,8 @@
 	{ ?>
 		<tr>
 		<td><?php  echo $row['id']; ?></td>
-		<td><?php  echo $row['page_name'];?> </td>
+		<td><?php  echo $row['Industry_1'];?> </td>
+		<td><?php  echo $row['Industry_2'];?> </td>
 		<td><?php  echo $row['written_by']; ?> </td>
 		<td>
 			<a href='/cliently_cms/edit.php?id=<?php echo $row['id'];?>'>Edit</a> | 

@@ -43,7 +43,8 @@
                     
                      <div class="form-group">
   					 	<!-- <label for="page_name">Page Name</label> -->
-  						<input type="text" class="form-control" id="page_name" placeholder="Page Name" required>
+  						<input type="text" class="form-control" id="ind_1" placeholder="Industry 1" required>
+  						<input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>
 					 </div>
                  
                  </div>        

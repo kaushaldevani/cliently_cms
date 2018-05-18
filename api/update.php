@@ -7,7 +7,8 @@
 			$id = $_GET['id'];
 			$data = json_decode(file_get_contents('php://input'), true);
 			
-			$page_name = $data['Page_name'];
+			$industry_1 = $data['Industry_1'];
+			$industry_2 = $data['Industry_2'];
 			$written_by = $data['Written_by'];
 			$job_title = $data['Job_title'];
 			$wp_id =$data['wp_id'];
@@ -19,9 +20,9 @@
 			$dbclass  = new dbConnection();
 			$conn = $dbclass-> db_connect();
 			
-			$stmt = $conn->prepare("UPDATE page SET page_name = ? , written_by = ?, tips =?, job_title = ?, action_data = ?, similar_camp_data=?, author_image=? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE page SET Industry_1 = ?, Industry_2 = ?  , written_by = ?, tips =?, job_title = ?, action_data = ?, similar_camp_data=?, author_image=? WHERE id = ?");
 			
-			$stmt->bind_param('sssssssi', $page_name, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image, $id);
+			$stmt->bind_param('ssssssssi', $industry_1, $industry_2, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image, $id);
 			
 			if ($stmt->execute())
 			{
