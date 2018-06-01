@@ -654,7 +654,4 @@
     border-top: 1px solid lightgray;
     padding: 10px;
 }
-div.action-in-flow[action_class="Handwritten_Notes"] > .action-flow-image >img
-{
-    background-color: #5a68e9;
-}
+

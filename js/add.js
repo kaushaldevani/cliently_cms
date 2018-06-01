@@ -877,7 +877,7 @@ $( document ).ready(function() {
     		case 'VIDEO-MESSAGE':
 			      $('#work-pane-email-video').find('input.email-sub').val($(hidden).find('input.video_email_sub').val());
 			      $("#work-pane-email-video").find('.wysihtml5-sandbox')[0].contentDocument.body.innerHTML = $(hidden).find('textarea.videoemail_body').val()
-                  $("#work-pane-email-video").find('#video_email_video').attr('src' , '~/../uploads/Video_email/' + $(hidden).find('input.video_email_name').val());
+                  $("#work-pane-email-video").find('#video_email_video').attr('src' , aws_upload_url + $(hidden).find('input.video_email_name').val());
 			      $("#work-pane-email-video").find('#video_email_video').attr('controls','');
 			      $("#work-pane-email-video").find('#video_start').attr('disabled',true);
 			      $('button#video_opener').trigger('click');

@@ -604,7 +604,7 @@
 												        <h3>OR</h3> 
 												        <h5>UPLOAD VIDEO</h5>
 												         <form id="video_upload_form">
-												         	<input style="margin-left:42%;"type="file" id="video_emil_file" value="">
+												         	<input style="margin-left:42%;"type="file" id="video_emil_file" accept="video/mp4,video/x-m4v,video/*" value="">
 												         </form>	
 												    </div> 													
 												

@@ -87,14 +87,33 @@
 		
 				$timeStamp =  $CurrentDateTime->format('U');
 				$video_name =  $timeStamp .'.'. $filetype;
-				if(move_uploaded_file($_FILES["video"]["tmp_name"], __DIR__.'/../uploads/Video_email/'. $video_name))
+				
+				$object = [
+						'Bucket'      => 'cliently-wp',
+						'Key'         => 'cliently_cms/' . $video_name,
+						'SourceFile'  => $_FILES["video"]["tmp_name"],
+						'ContentType' => $filetype,
+						'ACL'         => 'public-read',
+				];
+				try
 				{
-					$dbclass->response(200,"video Uploaded successfully",$video_name);
+					$result = $s3_client->putObject($object);
+				
+					if($result['@metadata']['statusCode'] == '200')
+					{
+						$dbclass->response(200,"video Uploaded successfully",$video_name);
+					}
+					else
+					{
+						$dbclass->response(400,"Something went wrong","Error:While uploading video to AWS");
+					}
+				
 				}
-				else
+				catch (\Aws\S3\Exception\S3Exception $e)
 				{
-					$dbclass->response(400,"Something went wrong","Error : While Uploading video might be Invalid formate or Size is too big.");
+					$dbclass->response(400,"Something went wrong",$e->getMessage());
 				}
+				
 		}
 		else
 		{
