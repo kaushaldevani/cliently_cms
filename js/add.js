@@ -988,6 +988,7 @@ $( document ).ready(function() {
 			 var data  = new Object();
 			 data.Industry_1 = $("#ind_1").val();
 			 data.Industry_2 = $("#ind_2").val();
+			 data.card_summary = $('textarea#card_summary').val();
 			 data.Written_by = $("#written_by").val();
 			 data.Job_title = $("#Job_title").val();
 			 data.tips = $("#editor-toolbar-for-tips").val();
@@ -1042,6 +1043,7 @@ $( document ).ready(function() {
 			 data.wp_id = $(this).attr('wp_id');
 			 data.Industry_1 = $("#ind_1").val();
 			 data.Industry_2 = $("#ind_2").val();
+			 data.card_summary = $('textarea#card_summary').val();
 			 data.Written_by = $("#written_by").val();
 			 data.Job_title = $("#Job_title").val();
 			 data.tips = $("#editor-toolbar-for-tips").val();
@@ -1674,9 +1676,14 @@ $( document ).ready(function() {
 			alert('Please enter Industry 1.');
 			return false;
 		}
-		else if( !$('input#ind_2').val() )
+		else if( !$('select#ind_2').val() )
 		{
 			alert('Please enter Industry 2.');
+			return false;
+		}
+		else if( !$('textarea#card_summary').val())
+		{
+			alert('Please enter Card Summary.');
 			return false;
 		}
 		else if($('div.flow-action').children().not('#action_template').length <= 0 )

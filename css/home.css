@@ -19,3 +19,7 @@ h2
     overflow: hidden;
     border-bottom: 2px solid lightgray;
 }
+.disabled
+{
+	pointer-events: none;
+}

@@ -5,6 +5,15 @@
 
 	$dbclass  = new dbConnection();
 	$conn = $dbclass-> db_connect();
+
+	$ind_list = mysqli_query($conn,"SELECT * FROM industries");
+	
+	$list_ind = array();
+	
+	while($row = mysqli_fetch_array($ind_list))
+	{
+		array_push($list_ind,$row);
+	}
 	
 	$aws_upload_url = 'https://cliently-wp.s3.us-west-2.amazonaws.com/cliently_cms/';
 	// Check connection
@@ -29,6 +38,7 @@
 			{
 				$industry_1 =  $row["Industry_1"];
 				$industry_2 =  $row["Industry_2"];
+				$card_summary =  $row['card_summary'];
 				$written_by = $row["written_by"];
 				$job_title =  $row["job_title"];
 				$action_data = $row["action_data"];
@@ -71,7 +81,8 @@
 					          <?php echo "<script type=\"text/javascript\"> 
 							        $(document).ready(function() { 
 							            $('input#ind_1').val('$industry_1');
-							            $('input#ind_2').val('$industry_2');
+							            $('select#ind_2').val('$industry_2');
+							            $('textarea#card_summary').val('$card_summary');
 							            $('input#written_by').val('$written_by');
 							            $('input#Job_title').val('$job_title');
 							            $('textarea#editor-toolbar-for-tips').val('$tips');
@@ -106,7 +117,16 @@
 				                     	<div class="form-group">
 				  					 		<!-- <label for="page_name">Page Name</label> -->
 				  							<input type="text" class="form-control" id="ind_1" placeholder="Industry 1" required>
-  											<input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>
+  									   <!-- <input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>  -->
+				  						<select class="form-control" id="ind_2"placeholder="Industry 2" style="margin-top:10px;"required>
+				      						 <?php 
+				      						    foreach ($list_ind as $ind)
+				      						    {?>
+				      						    	<option><?php echo $ind["Industry"] ;?></option>  
+				      						   <?php  }
+				      						 ?>
+				      					</select>
+				      					<textarea id="card_summary" class="form-control" placeholder="Card Summary" style="margin-top: 10px;"></textarea>					
 									 	</div>
 			                	 	</div>        
 			           		        <!-- end of basic detail area -->

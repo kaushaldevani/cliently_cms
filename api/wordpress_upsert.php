@@ -47,12 +47,14 @@
 					$similar_camp = '"similar_camp" : ' . $row['similar_camp_data'];
 					$author = '"author" : { "written_by" :"' .$row['written_by'].'", "job_title" :"' .$row['job_title'] .'", "author_image" :"'.$row['author_image'].'"}';
 					$tips = '"tips" :"' .$row['tips'] .'"';
-					$json_str = '{'. $industry. ',' .$action_data. ',' .$similar_camp. ','. $author. ','. $tips . '}' ;
+					$card_summary = '"card_summary":"'. $row['card_summary'].'"';
+					$json_str = '{'.$card_summary. ','. $industry. ',' .$action_data. ',' .$similar_camp. ','. $author. ','. $tips . '}' ;
 
 					$post = array(
 							'title'  => $row['Industry_1'].' targeting '.$row['Industry_2'],
 							'template' => 'main_template.php',
 							'content' => $json_str,
+							'slug'=> $row['Industry_2']
 					);
 					$post = http_build_query($post);
 					$ch = curl_init();

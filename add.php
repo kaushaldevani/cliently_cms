@@ -5,8 +5,15 @@
 
    	 $dbclass  = new dbConnection();
 	 $conn = $dbclass-> db_connect();
-
-
+  
+	 $ind_list = mysqli_query($conn,"SELECT * FROM industries");
+	 
+	 $list_ind = array();
+	 
+	 while($row = mysqli_fetch_array($ind_list))
+	 {
+	 	array_push($list_ind,$row);
+	 }
 ?>
 
 
@@ -44,9 +51,17 @@
                      <div class="form-group">
   					 	<!-- <label for="page_name">Page Name</label> -->
   						<input type="text" class="form-control" id="ind_1" placeholder="Industry 1" required>
-  						<input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>
+  						<!-- <input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>  -->
+  						<select class="form-control" id="ind_2"placeholder="Industry 2" style="margin-top:10px;"required>
+      						 <?php 
+      						    foreach ($list_ind as $ind)
+      						    {?>
+      						    	<option><?php echo $ind["Industry"] ;?></option>  
+      						   <?php  }
+      						 ?>
+      					</select>
+      					<textarea id="card_summary" class="form-control" placeholder="Card Summary" style="margin-top: 10px;"></textarea>
 					 </div>
-                 
                  </div>        
                  <!-- end of basic detail area -->
                           
