@@ -1,7 +1,6 @@
 <?php
 
  
-     // Test
      require dirname(__FILE__).'/config/dbconfig.php';
 
    	 $dbclass  = new dbConnection();
