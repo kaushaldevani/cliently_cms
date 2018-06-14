@@ -129,7 +129,7 @@
   						
   						<div style="display:inline-block">
   							<img id="author_img" style="width: 100px;height: 100px;float: left;	" src="~/../images/profile-blank.png" alt="your image" />
-  							<input type='file'  id="author_img_input" style="padding: 36px;" />
+  							<input type='file'  id="author_img_input" accept="image/jpg,image/jpeg" style="padding: 36px;" />
   							
 					    </div>
 					 </div>
