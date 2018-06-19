@@ -36,8 +36,9 @@
 			
 			while($row=mysqli_fetch_array($result))
 			{
-				$industry_1 =  $row["Industry_1"];
-				$industry_2 =  $row["Industry_2"];
+				$target_1 =  $row["Target_1"];
+				$target_2 =  $row["Target_2"];
+				$industry =  $row["Industry"];
 				$card_summary =  $row['card_summary'];
 				$written_by = $row["written_by"];
 				$job_title =  $row["job_title"];
@@ -80,8 +81,9 @@
 					
 					          <?php echo "<script type=\"text/javascript\"> 
 							        $(document).ready(function() { 
-							            $('input#ind_1').val('$industry_1');
-							            $('select#ind_2').val('$industry_2');
+							            $('input#target_1').val('$target_1');
+							            $('input#target_2').val('$target_2');
+							            $('select#ind').val('$industry');
 							            $('textarea#card_summary').val('$card_summary');
 							            $('input#written_by').val('$written_by');
 							            $('input#Job_title').val('$job_title');
@@ -116,9 +118,9 @@
 			                 		<div class="detail">
 				                     	<div class="form-group">
 				  					 		<!-- <label for="page_name">Page Name</label> -->
-				  							<input type="text" class="form-control" id="ind_1" placeholder="Industry 1" required>
-  									   <!-- <input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>  -->
-				  						<select class="form-control" id="ind_2"placeholder="Industry 2" style="margin-top:10px;"required>
+				  							<input type="text" class="form-control" id="target_1" placeholder="Target 1" required>
+  											<input type="text" class="form-control" id="target_2" placeholder="Target 2" style="margin-top:10px;"required>
+				  						<select class="form-control" id="ind" placeholder="Industry 2" style="margin-top:10px;"required>
 				      						 <?php 
 				      						    foreach ($list_ind as $ind)
 				      						    {?>
@@ -194,7 +196,7 @@
 			  						
 			  						<div style="display:inline-block">
 			  							<img id="author_img" style="width: 100px;height: 100px;float: left;	" src=<?php echo $autho_img__url;?> alt="your image" />
-			  							<input type='file'  id="author_img_input" accept="image/jpg,image/jpeg" style="padding: 36px;" />
+			  							<input type='file'  id="author_img_input" accept="image/jpg,image/jpeg,image/png" style="padding: 36px;" />
 			  							
 								    </div>
 								 </div>

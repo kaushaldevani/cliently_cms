@@ -7,8 +7,9 @@
 	$dbclass  = new dbConnection();
 	$conn = $dbclass-> db_connect();
 	
-	$industry_1 = $data['Industry_1'];
-	$industry_2 = $data['Industry_2'];
+	$target_1 = $data['Target_1'];
+	$target_2 = $data['Target_2'];
+	$industry = $data['Industry'];
 	$card_summary =  $data['card_summary'];
 	$written_by = $data['Written_by'];
 	$job_title = $data['Job_title'];
@@ -17,9 +18,9 @@
 	$similar_camps = json_encode($data['similar_camps']);
     $author_image =  $data['author_image']; 	
 	
-	$stmt = $conn->prepare( "INSERT INTO page (Industry_1, Industry_2, written_by, tips, job_title, action_data, similar_camp_data, author_image, card_summary) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+	$stmt = $conn->prepare( "INSERT INTO page (Target_1, Target_2, Industry, written_by, tips, job_title, action_data, similar_camp_data, author_image, card_summary) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 	
-	$stmt->bind_param('sssssssss', $industry_1, $industry_2, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image, $card_summary); 
+	$stmt->bind_param('ssssssssss', $target_1, $target_2, $industry, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image, $card_summary); 
 
 	if ($stmt->execute()) 
 	{

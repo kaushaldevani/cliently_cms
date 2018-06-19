@@ -202,8 +202,9 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Industry 1</th>
-        <th>Industry 2</th>        
+        <th>Target 1</th>
+        <th>Target 2</th>  
+        <th>Industry</th>        
         <th>Written By</th>
         <th>Edit / Delete / View</th>
       </tr>
@@ -216,8 +217,9 @@
 	{ ?>
 		<tr>
 		<td><?php  echo $row['id']; ?></td>
-		<td><?php  echo $row['Industry_1'];?> </td>
-		<td><?php  echo $row['Industry_2'];?> </td>
+		<td><?php  echo $row['Target_1'];?> </td>
+		<td><?php  echo $row['Target_2'];?> </td>
+		<td><?php  echo $row['Industry'];?> </td>
 		<td><?php  echo $row['written_by']; ?> </td>
 		<td>
 			<a href='/cliently_cms/edit.php?id=<?php echo $row['id'];?>'>Edit</a> | 

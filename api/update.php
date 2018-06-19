@@ -7,8 +7,9 @@
 			$id = $_GET['id'];
 			$data = json_decode(file_get_contents('php://input'), true);
 			
-			$industry_1 = $data['Industry_1'];
-			$industry_2 = $data['Industry_2'];
+			$target_1 = $data['Target_1'];
+			$target_2 = $data['Target_2'];
+			$industry = $data['Industry'];
 			$written_by = $data['Written_by'];
 			$card_summary =  $data['card_summary'];
 			$job_title = $data['Job_title'];
@@ -21,9 +22,9 @@
 			$dbclass  = new dbConnection();
 			$conn = $dbclass-> db_connect();
 			
-			$stmt = $conn->prepare("UPDATE page SET Industry_1 = ?, Industry_2 = ?  , written_by = ?, tips =?, job_title = ?, action_data = ?, similar_camp_data=?, author_image=? , card_summary=? WHERE id = ?");
+			$stmt = $conn->prepare("UPDATE page SET Target_1 = ?, Target_2 = ?, Industry= ?,  written_by = ?, tips =?, job_title = ?, action_data = ?, similar_camp_data=?, author_image=? , card_summary=? WHERE id = ?");
 			
-			$stmt->bind_param('sssssssssi', $industry_1, $industry_2, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image, $card_summary, $id);
+			$stmt->bind_param('ssssssssssi', $target_1, $target_2, $industry, $written_by, $tips, $job_title, $action_data, $similar_camps, $author_image, $card_summary, $id);
 			
 			if ($stmt->execute())
 			{

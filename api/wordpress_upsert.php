@@ -42,7 +42,7 @@
 				while($row = $result->fetch_assoc())
 				{
 
-					$industry = '"industry_data":{ "ind_1":"'.$row['Industry_1'] .'","ind_2":"'.$row['Industry_2'].'"}';
+					$industry = '"industry_data":{ "ind_1":"'.$row['Target_1'] .'","ind_2":"'.$row['Target_2'].'"}';
 					$action_data = '"action_data" : ' . $row['action_data'];
 					$similar_camp = '"similar_camp" : ' . $row['similar_camp_data'];
 					$author = '"author" : { "written_by" :"' .$row['written_by'].'", "job_title" :"' .$row['job_title'] .'", "author_image" :"'.$row['author_image'].'"}';
@@ -51,10 +51,10 @@
 					$json_str = '{'.$card_summary. ','. $industry. ',' .$action_data. ',' .$similar_camp. ','. $author. ','. $tips . '}' ;
 
 					$post = array(
-							'title'  => $row['Industry_1'].' targeting '.$row['Industry_2'],
+							'title'  => $row['Target_1'].' targeting '.$row['Target_2'],
 							'template' => 'main_template.php',
 							'content' => $json_str,
-							'slug'=> $row['Industry_2']
+							'slug'=> $row['Industry']
 					);
 					$post = http_build_query($post);
 					$ch = curl_init();

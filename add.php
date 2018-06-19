@@ -50,9 +50,9 @@
                     
                      <div class="form-group">
   					 	<!-- <label for="page_name">Page Name</label> -->
-  						<input type="text" class="form-control" id="ind_1" placeholder="Industry 1" required>
-  						<!-- <input type="text" class="form-control" id="ind_2" placeholder="Industry 2" style="margin-top:10px;"required>  -->
-  						<select class="form-control" id="ind_2"placeholder="Industry 2" style="margin-top:10px;"required>
+  						<input type="text" class="form-control" id="target_1" placeholder="Target 1" required>
+  						<input type="text" class="form-control" id="target_2" placeholder="Target 2" style="margin-top:10px;"required>
+  						<select class="form-control" id="ind" placeholder="Industry" style="margin-top:10px;"required>
       						 <?php 
       						    foreach ($list_ind as $ind)
       						    {?>
@@ -129,7 +129,7 @@
   						
   						<div style="display:inline-block">
   							<img id="author_img" style="width: 100px;height: 100px;float: left;	" src="~/../images/profile-blank.png" alt="your image" />
-  							<input type='file'  id="author_img_input" accept="image/jpg,image/jpeg" style="padding: 36px;" />
+  							<input type='file'  id="author_img_input" accept="image/jpg,image/jpeg,image/png" style="padding: 36px;" />
   							
 					    </div>
 					 </div>

@@ -50,13 +50,13 @@ $conn = $dbclass-> db_connect();
 				
 			if ($stmt->execute())
 			{
-				$stmt = $conn->prepare("SELECT * FROM page WHERE Industry_2 = ?");
+				$stmt = $conn->prepare("SELECT * FROM page WHERE Industry = ?");
 				$stmt->bind_param('s',$old_value);
 					
 				if ($stmt->execute())
 				{
 					$pages_to_update = array();
-					$stmt->bind_result($page_id,$written_by,$job_title,$action_data,$similar_camp_data,$tips,$author_image,$wordpress_id,$Industry_2,$Industry_1,$card_summary);
+					$stmt->bind_result($page_id,$written_by,$job_title,$action_data,$similar_camp_data,$tips,$author_image,$wordpress_id,$Industry,$Target_1,$card_summary,$Target_2);
 			
 					while ($stmt->fetch())
 					{
@@ -66,7 +66,7 @@ $conn = $dbclass-> db_connect();
 			
 					foreach ($pages_to_update as $page_update)
 					{
-						$stmt = $conn->prepare("UPDATE page SET Industry_2 = ? WHERE id = ?");
+						$stmt = $conn->prepare("UPDATE page SET Industry = ? WHERE id = ?");
 						$stmt->bind_param('si', $new_value, $page_update['page_id']);
 						if ($stmt->execute())
 						{
@@ -117,13 +117,13 @@ $conn = $dbclass-> db_connect();
 				$stmt->bind_param('i',$id);
 				if ($stmt->execute())
 				{
-					$stmt = $conn->prepare("SELECT * FROM page WHERE Industry_2 = ?");
+					$stmt = $conn->prepare("SELECT * FROM page WHERE Industry = ?");
 					$stmt->bind_param('s',$value);
 						
 					if ($stmt->execute())
 					{
 						$pages_to_update = array();
-						$stmt->bind_result($page_id,$written_by,$job_title,$action_data,$similar_camp_data,$tips,$author_image,$wordpress_id,$Industry_2,$Industry_1,$card_summary);
+						$stmt->bind_result($page_id,$written_by,$job_title,$action_data,$similar_camp_data,$tips,$author_image,$wordpress_id,$Industry,$Target_1,$card_summary,$Target_2);
 							
 						while ($stmt->fetch())
 						{
@@ -133,7 +133,7 @@ $conn = $dbclass-> db_connect();
 						
 						foreach ($pages_to_update as $page_update)
 						{
-							$stmt = $conn->prepare("UPDATE page SET Industry_2 = ? WHERE id = ?");
+							$stmt = $conn->prepare("UPDATE page SET Industry = ? WHERE id = ?");
 							$stmt->bind_param('si', $empty_value, $page_update['page_id']);
 							if ($stmt->execute())
 							{

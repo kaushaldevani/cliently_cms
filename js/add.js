@@ -986,8 +986,9 @@ $( document ).ready(function() {
 
 			 var image_name = uploadAuthorImage();
 			 var data  = new Object();
-			 data.Industry_1 = $("#ind_1").val();
-			 data.Industry_2 = $("#ind_2").val();
+			 data.Target_1 = $("#target_1").val();
+			 data.Target_2 = $("#target_2").val();
+			 data.Industry = $("#ind").val();
 			 data.card_summary = $('textarea#card_summary').val();
 			 data.Written_by = $("#written_by").val();
 			 data.Job_title = $("#Job_title").val();
@@ -1041,8 +1042,9 @@ $( document ).ready(function() {
 			 var id = $(this).attr('page_id');
 			 var data  = new Object();
 			 data.wp_id = $(this).attr('wp_id');
-			 data.Industry_1 = $("#ind_1").val();
-			 data.Industry_2 = $("#ind_2").val();
+			 data.Target_1 = $("#target_1").val();
+			 data.Target_2 = $("#target_2").val();
+			 data.Industry = $("#ind").val();
 			 data.card_summary = $('textarea#card_summary').val();
 			 data.Written_by = $("#written_by").val();
 			 data.Job_title = $("#Job_title").val();
@@ -1671,14 +1673,19 @@ $( document ).ready(function() {
 	var validationsForMainPage = function()
 	{
 
-		if( !$('input#ind_1').val() )
+		if( !$('input#target_1').val() )
 		{
-			alert('Please enter Industry 1.');
+			alert('Please enter Target 1.');
 			return false;
 		}
-		else if( !$('select#ind_2').val() )
+		else if( !$('input#target_2').val() )
 		{
-			alert('Please enter Industry 2.');
+			alert('Please enter Target 2.');
+			return false;
+		}
+		else if( !$('select#ind').val() )
+		{
+			alert('Please enter Industry.');
 			return false;
 		}
 		else if( !$('textarea#card_summary').val())
