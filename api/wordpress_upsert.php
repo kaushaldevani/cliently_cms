@@ -54,8 +54,37 @@
 							'title'  => $row['Target_1'].' targeting '.$row['Target_2'],
 							'template' => 'main_template.php',
 							'content' => $json_str,
-							'slug'=> $row['Industry']
+							'slug'=> $row['Target_1'].' targeting '.$row['Target_2']
 					);
+					$cat = array();
+
+					$sql = "SELECT * FROM `industries` WHERE Industry = '" . $row['Industry'] . "'";
+					$ind_result = $conn->query($sql);
+					if ($ind_result->num_rows > 0)
+					{
+						while($ind_row = $ind_result->fetch_assoc())
+						{
+							$ind_wp_id = $ind_row['wordpress_id'];
+					
+							if($ind_wp_id != null)
+							{
+								array_push($cat,$ind_wp_id);
+							}
+						}
+					}
+					
+					
+					if(count($cat) > 0)
+					{
+						$post['categories'] = $cat;
+					}
+					else
+					{
+						$post['categories'] = array(1);
+					}
+					
+					
+					
 					$post = http_build_query($post);
 					$ch = curl_init();
 					curl_setopt($ch, CURLOPT_URL, $url);
@@ -134,6 +163,128 @@
 				return true;
 			}
 
+		}
+		
+		public function upsertCategoryInWordpress($db_id)
+		{
+			$dbclass  = new dbConnection();
+			$conn = $dbclass-> db_connect();
+			$wp_url = $this->wordpress_url;
+			
+		
+			$sql = "SELECT * FROM `industries` WHERE id = '$db_id'";
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0)
+			{
+				while($row = $result->fetch_assoc())
+				{
+					
+					$wp_id = $row['wordpress_id'];
+
+					if($wp_id != null)
+					{
+						$url = str_replace("pages","categories",$wp_url).'/'. $wp_id;
+					}
+					else
+					{
+						$url = str_replace("pages","categories",$wp_url);
+					}
+					$post = array(
+							'name'  => $row['Industry']
+					);
+					$post = http_build_query($post);
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+					curl_setopt($ch, CURLOPT_POST, 1);
+					curl_setopt($ch, CURLOPT_USERPWD, $this->wp_username. ":" . $this->wp_password);
+					$headers    = array();
+					$headers[]  = "Content-Type: application/x-www-form-urlencoded";
+					curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+					$result = curl_exec($ch);
+					if (curl_errno($ch)) {
+						echo 'Error:' . curl_error($ch);
+					}
+					curl_close ($ch);
+					$raw  = json_decode($result, true);
+					$wordpress_id = $raw['id'];
+					if(isset($wordpress_id))
+					{
+						$sql = "UPDATE industries SET wordpress_id ='$wordpress_id' WHERE id = '$db_id'";
+					
+						if ($conn->query($sql) === TRUE)
+						{
+							return true;
+						}
+						else
+						{
+							return false;
+						}
+					}
+				}
+			}
+			$conn->close();
+		}
+		
+		public function DeleteCategoryInWordpress($db_id)
+		{
+			if($db_id != null)
+			{
+				$dbclass  = new dbConnection();
+				$conn = $dbclass-> db_connect();
+				
+				$sql = "SELECT * FROM `industries` WHERE id = '$db_id'";
+				$result = $conn->query($sql);
+				if ($result->num_rows > 0)
+				{
+					while($row = $result->fetch_assoc())
+					{
+						$wp_id = $row['wordpress_id'];
+						
+						if($wp_id != null)
+						{
+							$url = str_replace("pages","categories",$this->wordpress_url).'/'. $wp_id .'?force=true';
+								
+							$ch = curl_init();
+							curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+							curl_setopt($ch, CURLOPT_URL, $url);
+							curl_setopt($ch, CURLOPT_POST, 1);
+							curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+							curl_setopt($ch, CURLOPT_USERPWD, $this->wp_username . ":" . $this->wp_password);
+							
+							$result = curl_exec($ch);
+							
+							if (curl_errno($ch))
+							{
+								echo '	:' . curl_error($ch);
+							}
+							curl_close ($ch);
+							$raw  = json_decode($result,true);
+							$status = $raw['deleted'];
+							
+							if($status)
+							{
+								return true;
+							}
+							else
+							{
+								return false;
+							}
+						}
+						else
+						{
+							return true;
+						}
+						
+					}
+				}
+				
+				$conn->close();
+			}
+			
+		
 		}
 
 	}

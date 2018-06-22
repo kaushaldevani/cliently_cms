@@ -50,75 +50,23 @@ $conn = $dbclass-> db_connect();
 				
 			if ($stmt->execute())
 			{
-				$stmt = $conn->prepare("SELECT * FROM page WHERE Industry = ?");
-				$stmt->bind_param('s',$old_value);
-					
-				if ($stmt->execute())
+				
+				$WpClassObj = new wordpressOps();
+				
+				if($id)
 				{
-					$pages_to_update = array();
-					$stmt->bind_result($page_id,$written_by,$job_title,$action_data,$similar_camp_data,$tips,$author_image,$wordpress_id,$Industry,$Target_1,$card_summary,$Target_2);
-			
-					while ($stmt->fetch())
-					{
-						$pages = array('page_id'=>$page_id, 'wordpress_id'=>$wordpress_id);
-						array_push($pages_to_update,$pages);
-					}
-			
-					foreach ($pages_to_update as $page_update)
-					{
-						$stmt = $conn->prepare("UPDATE page SET Industry = ? WHERE id = ?");
-						$stmt->bind_param('si', $new_value, $page_update['page_id']);
-						if ($stmt->execute())
-						{
-							$WpClassObj = new wordpressOps();
-							if($page_update['wordpress_id'] != 0 && $page_update['wordpress_id'] != null)
-							{
-								$Wp_result = $WpClassObj->upsertPageInWordpress($page_update['page_id'], $page_update['wordpress_id']);
-							}
-							else
-							{
-								$Wp_result = $WpClassObj->upsertPageInWordpress($page_update['page_id']);
-							}
-			
-							if(!$Wp_result)
-							{
-								$dbclass-> response(400, "Error", "Error While updating Page in Wordpress");
-							}
-						}
-						else
-						{
-							$dbclass-> response(400, "Error","Error While updating Page in CMS");
-						}
-					}
-					$dbclass-> response(200, "Success", "Updated Successfully ");
+					$Wp_result = $WpClassObj->upsertCategoryInWordpress($id);
 				}
-				else
+				else if($stmt->insert_id)
 				{
-					$dbclass-> response(400, "Error", $stmt->error);
+					$Wp_result = $WpClassObj->upsertCategoryInWordpress($stmt->insert_id);
 				}
-			}
-			else
-			{
-				$dbclass-> response(400, "Error", "Error While updating Industry");
-			}
-			
-			$stmt->close();
-			
-		}
-		else if($data['req_type'] == 'Delete' )
-		{
-			
-			if($data['ind_id'])
-			{
-				$id = $data['ind_id'];
-				$value = $data['value'];
-				$empty_value = "";
-				$stmt = $conn->prepare("DELETE FROM industries WHERE id= ? ");
-				$stmt->bind_param('i',$id);
-				if ($stmt->execute())
+				
+				
+				if($Wp_result)
 				{
 					$stmt = $conn->prepare("SELECT * FROM page WHERE Industry = ?");
-					$stmt->bind_param('s',$value);
+					$stmt->bind_param('s',$old_value);
 						
 					if ($stmt->execute())
 					{
@@ -130,11 +78,11 @@ $conn = $dbclass-> db_connect();
 							$pages = array('page_id'=>$page_id, 'wordpress_id'=>$wordpress_id);
 							array_push($pages_to_update,$pages);
 						}
-						
+							
 						foreach ($pages_to_update as $page_update)
 						{
 							$stmt = $conn->prepare("UPDATE page SET Industry = ? WHERE id = ?");
-							$stmt->bind_param('si', $empty_value, $page_update['page_id']);
+							$stmt->bind_param('si', $new_value, $page_update['page_id']);
 							if ($stmt->execute())
 							{
 								$WpClassObj = new wordpressOps();
@@ -157,18 +105,101 @@ $conn = $dbclass-> db_connect();
 								$dbclass-> response(400, "Error","Error While updating Page in CMS");
 							}
 						}
-						
-						$dbclass-> response(200, "Success", "Deleted Successfully");
+						$dbclass-> response(200, "Success", "Updated Successfully ");
 					}
 					else
 					{
 						$dbclass-> response(400, "Error", $stmt->error);
+					}	
+				}
+				else 
+				{
+					$dbclass-> response(400, "Error", 'Error While updating Industry in Wordpress');
+				}
+			}
+			else
+			{
+				$dbclass-> response(400, "Error", "Error While updating Industry");
+			}
+			
+			$stmt->close();
+			
+		}
+		else if($data['req_type'] == 'Delete' )
+		{
+			
+			if($data['ind_id'])
+			{
+				$id = $data['ind_id'];
+				$value = $data['value'];
+				$empty_value = "";
+				$WpClassObj = new wordpressOps();
+				$Wp_result = $WpClassObj->DeleteCategoryInWordpress($id);
+				
+				if($Wp_result)
+				{
+					$stmt = $conn->prepare("DELETE FROM industries WHERE id= ? ");
+					$stmt->bind_param('i',$id);
+					if ($stmt->execute())
+					{
+						$stmt = $conn->prepare("SELECT * FROM page WHERE Industry = ?");
+						$stmt->bind_param('s',$value);
+					
+						if ($stmt->execute())
+						{
+							$pages_to_update = array();
+							$stmt->bind_result($page_id,$written_by,$job_title,$action_data,$similar_camp_data,$tips,$author_image,$wordpress_id,$Industry,$Target_1,$card_summary,$Target_2);
+								
+							while ($stmt->fetch())
+							{
+								$pages = array('page_id'=>$page_id, 'wordpress_id'=>$wordpress_id);
+								array_push($pages_to_update,$pages);
+							}
+					
+							foreach ($pages_to_update as $page_update)
+							{
+								$stmt = $conn->prepare("UPDATE page SET Industry = ? WHERE id = ?");
+								$stmt->bind_param('si', $empty_value, $page_update['page_id']);
+								if ($stmt->execute())
+								{
+									$WpClassObj = new wordpressOps();
+									if($page_update['wordpress_id'] != 0 && $page_update['wordpress_id'] != null)
+									{
+										$Wp_result = $WpClassObj->upsertPageInWordpress($page_update['page_id'], $page_update['wordpress_id']);
+									}
+									else
+									{
+										$Wp_result = $WpClassObj->upsertPageInWordpress($page_update['page_id']);
+									}
+										
+									if(!$Wp_result)
+									{
+										$dbclass-> response(400, "Error", "Error While updating Page in Wordpress");
+									}
+								}
+								else
+								{
+									$dbclass-> response(400, "Error","Error While updating Page in CMS");
+								}
+							}
+					
+							$dbclass-> response(200, "Success", "Deleted Successfully");
+						}
+						else
+						{
+							$dbclass-> response(400, "Error", $stmt->error);
+						}
+					}
+					else
+					{
+						$dbclass-> response(400, "Error", "Error While Deleting Industry");
 					}
 				}
-				else
+				else 
 				{
-					$dbclass-> response(400, "Error", "Error While Deleting Industry");
+					$dbclass-> response(400, "Error", "Error While Deleting Industry in wordpress");
 				}
+
 			}
 			else 
 			{
