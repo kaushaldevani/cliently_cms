@@ -1,7 +1,7 @@
 <?php 
 
     require dirname(__FILE__).'/vendor/autoload.php';
-	require dirname(__FILE__).'/config/dbconfig.php';
+	require dirname(__FILE__).'/api/wordpress_upsert.php';
 
 	$dbclass  = new dbConnection();
 	$conn = $dbclass-> db_connect();
@@ -213,8 +213,32 @@
 	
 	<?php 
 	
+	$wp_check_array = array();
 	while($row = mysqli_fetch_array($result))
-	{ ?>
+	{
+		$page_array =array(
+							'id' =>$row['id'],
+							'wp_id' => $row['wordpress_id']
+						  );
+		array_push($wp_check_array,$page_array);
+	}
+	
+	$WpClassObj = new wordpressOps();
+	$Wp_result = $WpClassObj->is_pages_exist_in_wordpress($wp_check_array);
+	
+	$page_ids = array();
+	
+	foreach ($Wp_result as $wp_page_data)
+	{
+		array_push($page_ids, $wp_page_data['id']);
+	}
+	
+	$pageidStr = implode(',', $page_ids);
+
+	$display_result = mysqli_query($conn,"SELECT * FROM page where id in ({$pageidStr})");
+	while($row = mysqli_fetch_array($display_result))
+	{ 
+		?>
 		<tr>
 		<td><?php  echo $row['id']; ?></td>
 		<td><?php  echo $row['Target_1'];?> </td>
@@ -228,6 +252,7 @@
 		</td>
 		</tr>
 	<?php
+	
 	}
 	?>
 	

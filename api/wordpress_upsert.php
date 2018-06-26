@@ -129,7 +129,7 @@
 
 			if($wp_id != null)
 			{
-			   $url = $this->wordpress_url .'/'.	$wp_id;
+			   $url = $this->wordpress_url .'/'.$wp_id.'?force=true';
 
 			    $ch = curl_init();
 				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
@@ -147,8 +147,8 @@
 				}
 				curl_close ($ch);
 				$raw  = json_decode($result,true);
-				$status = $raw['status'] ;
-				if( $status == "trash")
+				$status = $raw['deleted'] ;
+				if( $status == 1)
 				{
 					return true;
 				}
@@ -285,6 +285,51 @@
 			}
 			
 		
+		}
+		
+		
+		
+		public function is_pages_exist_in_wordpress($db_lst)
+		{
+			
+			$wp_url = $this->wordpress_url;
+			
+			$url = str_replace("/wp/v2/pages","/custom_url/checkForPagesExist",$wp_url);
+			
+			$post = array(
+					'pg_lst' => $db_lst
+			);
+			
+			$post = json_encode	($post);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_POST, 1);
+			curl_setopt($ch, CURLOPT_USERPWD, $this->wp_username. ":" . $this->wp_password);
+			$headers    = array();
+			$headers[]  = "Content-Type: application/json";
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			$result = curl_exec($ch);
+			if($result != null)
+			{
+				$result = json_decode($result, true);
+				$final_result = array();
+				foreach ($result as $single_page_res)
+				{
+					if($single_page_res ['is_exist'] === true )
+					{
+						array_push($final_result , $single_page_res);
+					}
+				}
+				return $final_result;
+			}
+			else
+			{
+				return "";
+			}
+						
 		}
 
 	}
