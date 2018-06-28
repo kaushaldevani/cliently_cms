@@ -49,7 +49,7 @@
 				$author_img = str_replace('"', '', $row['author_image']) ;
 				if($author_img)
 				{
-					$autho_img__url =$aws_upload_url. $author_img;
+					$autho_img__url =$aws_upload_url. rawurlencode($author_img);
 				}
 				else
 				{

@@ -1138,7 +1138,7 @@ $( document ).ready(function() {
 			}
 		 	else
 		 	{
-		 		return  $('img#author_img').attr('src').substring($('img#author_img').attr('src').lastIndexOf("/")+1);
+		 		return  decodeURIComponent($('img#author_img').attr('src').substring($('img#author_img').attr('src').lastIndexOf("/")+1));
 		 	}
 		}
 
