@@ -5,6 +5,12 @@ var main_url = "https://www.cliently.com/cliently_cms";
 var aws_upload_url = 'https://cliently-wp.s3.us-west-2.amazonaws.com/cliently_cms/';
 $( document ).ready(function() {
 
+	
+	$('#tips_edit_link').click(function(e){
+		
+		 $("#work-pane-tips").find('.wysihtml5-sandbox')[0].contentDocument.body.innerHTML =   $('.tips').find('.hidden_data_for_action > .tips_body').val();
+		
+	});
 
 	$('#mainAddActionLink').click(function(){
 
@@ -521,6 +527,12 @@ $( document ).ready(function() {
 		     $(updateDiv).find('.action-detail').text(action_detail);
 
 	     }
+	     else if (action_name == 'work-pane-tips')
+	     {
+		   
+		    $('.tips').find('.hidden_data_for_action >.tips_body').val($('#editor-toolbar-for-tips').val()); 
+	     }
+	   
 		 $(this).closest('.modal-dialog').find('.close').trigger('click');
 
 
@@ -992,7 +1004,7 @@ $( document ).ready(function() {
 			 data.card_summary = $('textarea#card_summary').val();
 			 data.Written_by = $("#written_by").val();
 			 data.Job_title = $("#Job_title").val();
-			 data.tips = $("#editor-toolbar-for-tips").val();
+			 data.tips = encodeURIComponent($(".tips > .hidden_data_for_action > .tips_body").val());
 
 			 if(image_name != '')
 			 {
@@ -1048,7 +1060,7 @@ $( document ).ready(function() {
 			 data.card_summary = $('textarea#card_summary').val();
 			 data.Written_by = $("#written_by").val();
 			 data.Job_title = $("#Job_title").val();
-			 data.tips = $("#editor-toolbar-for-tips").val();
+			 data.tips = encodeURIComponent($(".tips > .hidden_data_for_action > .tips_body").val());
 			 if(image_name != '')
 			 {
 				 data.author_image = image_name ; //$("#author_img").attr('src');
@@ -1318,7 +1330,7 @@ $( document ).ready(function() {
 			       	case "EMAIL":
 
 			       		  action.email_subject = $(hidden_data).find('.email_sub').val();
-			       		  action.email_body = $(hidden_data).find('.email_body').val();
+			       		  action.email_body = encodeURIComponent($(hidden_data).find('.email_body').val());
 
 			              break;
 			       	case "WAIT":
@@ -1329,7 +1341,7 @@ $( document ).ready(function() {
 			       	case "VIDEO-MESSAGE":
 
 			       	      action.video_email_subject = $(hidden_data).find('.video_email_sub').val();
-		       		      action.video_email_body = $(hidden_data).find('.videoemail_body').val();
+		       		      action.video_email_body = encodeURIComponent($(hidden_data).find('.videoemail_body').val());
 		       		      action.video_name = $(hidden_data).find('.video_email_name').val();
 			              break;
 			       	case "POSTCARD":
@@ -1750,7 +1762,7 @@ var  addaction =  function (action)
 				  action_detail= action.email_subject ;
 				  var msg_body =  $('<textarea class=\'email_body\' />');
 				  var email_sub = $('<input class=\'email_sub\' />');
-				  msg_body.val(action.email_body);
+				  msg_body.val(decodeURIComponent(action.email_body));
 				  email_sub.val(action_detail);
                   $(addDiv).find('.hidden_data_for_action').append(msg_body, email_sub);
 		          break;
@@ -1775,7 +1787,7 @@ var  addaction =  function (action)
 				  var video_msg_body =  $('<textarea class="videoemail_body" />');
 				  var video_email_sub = $('<input class="video_email_sub" />');
 				  var video_email_name = $('<input class="video_email_name" />');
-				  video_msg_body.val(action.video_email_body);
+				  video_msg_body.val(decodeURIComponent(action.video_email_body));
 				  video_email_sub.val(action_detail);
 				  video_email_name.val(action.video_name);
 				  $(addDiv).find('.hidden_data_for_action').append(video_email_sub,video_email_name,video_msg_body);

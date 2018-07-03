@@ -113,8 +113,11 @@
                  <div class="tips">
                  		
                  	<div class="tips_clikable">
-               	    	<h1>TIPS <i class="fa fa-pencil" data-toggle="modal" data-target="#work-pane-tips" aria-hidden="true"></i></h1>
+               	    	<h1>TIPS <i class="fa fa-pencil" id="tips_edit_link" data-toggle="modal" data-target="#work-pane-tips" aria-hidden="true"></i></h1>
   	                </div>
+  	                <div class="hidden_data_for_action">
+  	                  <textarea class='tips_body'></textarea>
+   		  		    </div>
                  
                  
                  </div>
